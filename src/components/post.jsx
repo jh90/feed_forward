@@ -1,3 +1,4 @@
+accepts post object prop from feed
 state.modalOpen default false
 render: displays link [image/text/headline-?]; commentary if it exists; date of post; comment button;
   header, onClick calls modalOpen; if .props.uid == firebase.currentUser, button onClick calls
