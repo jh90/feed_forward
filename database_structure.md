@@ -1,0 +1,19 @@
+/users
+    /:UIDs
+        .email
+        .alias
+        .id
+/posts
+    /:PIDs
+        .poster-uid
+        .id
+        .link
+        .text
+        .timestamp
+        .votes
+        .comments
+            .:CIDs
+                .text
+                .header
+                .commenter-uid
+                .timestamp
