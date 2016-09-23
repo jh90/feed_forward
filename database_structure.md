@@ -5,7 +5,7 @@
         .id
 /posts
     /:PIDs
-        .poster-uid
+        .poster-id
         .id
         .link
         .text

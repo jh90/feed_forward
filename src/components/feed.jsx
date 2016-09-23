@@ -60,7 +60,7 @@ export default class Feed extends React.Component {
     else {
       const individualUserPosts = [];
       postList.forEach((post) => {
-        if (post.uid === this.props.params.uid) {
+        if (post.poster-id === this.props.params.uid) {
           individualUserPosts.push(post);
         }
       });

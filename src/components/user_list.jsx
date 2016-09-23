@@ -1,21 +1,46 @@
-dummy component
-displays all in db/users by alias as Link to:/users/uid + [thumbnail of?] most recent post
-
 import React from 'react';
 import {Link} from 'react-router';
 import request from 'superagent';
 
-const UserList = () => {
-  return (
-    <div>
-      {
-        const url = 'https://feedforward-968b7.firebaseio.com/users';
-        request.get(url).then((response) => {
-          response.map((user) => {
-            <Link to=`/users/${user.id}` addClass='user-link'>{user.alias}</Link>
-          });
-        })
-      }
-    </div>
-  );
+import Post from './post.jsx';
+
+export default class UserList extends React.Component {
+  getLastPostOfEachUser () {
+    const postsURL = 'https://feedforward-968b7.firebaseio.com/posts';
+    request.get(postsURL).then((response) => {
+      const allPosts = Array.from(response.body);
+      allPosts.reverse();
+
+      const usersAddedToList = [];
+      const lastPosts = [];
+      allPosts.forEach((post) => {
+        if (!usersAddedToList.include(post.poster-id)) {
+          lastPosts.push(post);
+          usersAddedToList.push(post.poster-id);
+        }
+      });
+      return lastPosts;
+    });
+  }
+
+  render () {
+    return (
+      <div>
+        {
+          const samplePosts = this.getLastPostOfEachUser();
+          const usersURL = 'https://feedforward-968b7.firebaseio.com/users';
+          samplePosts.map((post) => {
+            const userAlias;
+            request.get(usersURL).then((response) => {
+              userAlias = response.body[post.poster-id].alias;
+            });
+            return (
+              <Link to=`/users/${post.poster-id}` className='user-link'>{userAlias}</Link>
+              <Post post={post} />
+            );
+          })
+        }
+      </div>
+    );
+  }
 }
