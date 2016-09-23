@@ -15,7 +15,7 @@ const Routes = () => {
         <IndexRoute component={Feed} />
         <Route path='users' >
           <Route path='all' component={UserList} />
-          <Route path=':id' component={Feed} />
+          <Route path=':uid' component={Feed} />
         </Route>
         <Route path='login' component={LoginForm} />
         <Route path='register' component={RegisterForm} />

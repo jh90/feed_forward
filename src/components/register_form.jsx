@@ -31,7 +31,7 @@ class Register extends React.Component {
             .then((registrant) => {
               firebase.database().ref('users')
                       .child(registrant.uid)
-                      .set({alias: name, email: user})
+                      .set({alias: name, email: user, id: registrant.uid})
             })
             .then(() => {
               this.props.router.push('/');

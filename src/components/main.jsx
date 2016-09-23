@@ -1,8 +1,8 @@
-nav links: signin/out, register, newpost, userlist, allposts
-index view: allposts
 BONUS:
   goto alias: text input, on submit passes value to getIdByAlias, passes its return to redirect
   getIdByAlias: searches for uid matching alias passed as parameter
+
+
 
 import React from 'react';
 import {Link} from 'react-router';
@@ -38,11 +38,10 @@ export default class Main extends React.Component {
       });
   }
 
-  toggleNavByAuthState () {
+  toggleOptionsByAuthState () {
     if(!this.state.loggedIn) {
       return (
-        <div id='nav-links'>
-          <Link to '/users/all'>Browse Feeds</Link>
+        <div id='opt-links'>
           <Link to='/login' id='login'>Login</Link>
           <Link to='/register' id='register'>Register</Link>
         </div>
@@ -50,10 +49,27 @@ export default class Main extends React.Component {
     }
     else {
       return (
-        <div id='nav-links'>
-          <Link to='/users/all'>Browse Feeds</Link>
+        <div id='opt-links'>
           <Link to='/new_post'>New Post</Link>
           <Link to='/' onClick={this.signOut}>Sign Out</Link>
+        </div>
+      );
+    }
+  }
+
+  toggleNavByLocation () {
+    if(this.props.location.pathname !== '/') {
+      return (
+        <div nav-links>
+          <Link to='/'>All Posts</Link>
+          <Link to='/users/all'>Browse Feeds</Link>
+        </div>
+      );
+    }
+    else {
+      return (
+        <div nav-links>
+          <Link to='/users/all'>Browse Feeds</Link>
         </div>
       );
     }
@@ -65,7 +81,8 @@ export default class Main extends React.Component {
         <h1 id='header'>fFW</h1>
         <div id='nav'>
           {
-            this.toggleNavByLoginState();
+            this.toggleOptionsByAuthState();
+            this.toggleNavByLocation();
           }
         </div>
         <div id='content'>
