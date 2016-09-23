@@ -16,7 +16,6 @@ export default class Feed extends React.Component {
       posts: [],
     };
     this.handleListContent = this.handleListContent.bind(this);
-    this.handleReordering = this.handleReordering.bind(this);
   }
 
   componentDidMount () {
