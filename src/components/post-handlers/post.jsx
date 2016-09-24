@@ -1,22 +1,9 @@
-accepts post object, getPosts func props from Feed/UserList
-state.modalOpen default false, localPostClone default props.post
-render: displays link [image/text/headline-?]; commentary if it exists; date of post; comment button;
-  header, onClick calls modalOpen; if .props.uid == firebase.currentUser, button onClick calls
-  removePost; votecount; if currentUser!=(null || post.uid), upvote/downvote buttons, onClick call
-  incrementVote(1 || -1)
-openModal: sets modalOpen to true (triggers rerender)
-closeModal: sets modalOpen to false, passed to PostViewModal as prop
-removePost: makes delete request to /posts/pid
-incrementVote: takes increment parameter, adds to props.post.votes, sends post to firebase, updates
-  .localPostClone
-child component: PostViewModal
-
 import React from 'react';
+import Modal from 'react-modal';
 import request from 'superagent';
-import firebase from '../../firebase.config.js';
-import LinkPreview from 'link-preview';
 
-import PostViewModal from 'post_view_modal.jsx';
+import PostView from './post_view.jsx';
+import CommentList from '../comment-handlers/comment_list.jsx';
 
 const propTypes = {
   post: React.PropTypes.object.isRequired,
@@ -72,11 +59,40 @@ export default class Post extends React.Component {
            });
   }
 
+  handleVote (e) {
+    const voteType = e.target.name;
+    const voteValue;
+    if (voteType === 'upvote') {
+      voteValue = 1;
+    }
+    else {
+      voteValue = -1;
+    }
+    this.addVote(voteValue);
+  }
+
   render () {
     return (
       <div>
-        <p>{this.props.post.text}</p>
-        <
+        <PostView post={this.props.post} removePost={this.removePost} inModal={false} />
+        <p onClick={this.openModal}>Click to vote and comment</p>
+        <Modal
+          isOpen={this.state.modalOpen}
+          onRequestClose={this.closeModal}
+          shouldCloseOnOverlayClick={false}
+          style={modalStyle} >
+
+          <button addClass='close-button' onClick={this.closeModal}>X</button>
+          <div addClass='voting-display'>
+            <button name='downvote' addClass='vote-button' onClick{this.handleVote}>
+              -</button>
+            <h2>{this.state.localVotes}</h2>
+            <button name='upvote' addClass='vote-button' onClick{this.handleVote}>
+              +</button>
+          </div>
+          <PostView post={this.props.post} inModal={true} />
+          <CommentList post-id={this.props.post.id} />
+        </Modal>
       </div>
     );
   }

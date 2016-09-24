@@ -18,7 +18,7 @@ const Routes = () => {
           <Route path=':uid' component={Feed} />
         </Route>
         <Route path='postviews'>
-          <Route path=':pid' component={PostView} />
+          <Route path=':pid' component={PostViewPage} />
         </Route
         <Route path='login' component={LoginForm} />
         <Route path='register' component={RegisterForm} />

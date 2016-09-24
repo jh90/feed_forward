@@ -6,6 +6,7 @@
 /posts
     /:PIDs
         .poster-id
+        .poster-alias
         .id
         .link
         .text
