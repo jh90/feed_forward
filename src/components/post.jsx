@@ -14,6 +14,7 @@ child component: PostViewModal
 import React from 'react';
 import request from 'superagent';
 import firebase from '../../firebase.config.js';
+import LinkPreview from 'link-preview';
 
 import PostViewModal from 'post_view_modal.jsx';
 
@@ -29,8 +30,17 @@ export default class Post extends React.Component {
       modalOpen: false,
       localVotes: 0,
     };
+    this.postURL = `https://feedforward-968b7.firebaseio.com/posts/${this.props.post.id}`;
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.removePost = this.removePost.bind(this);
+    this.addVote = this.addVote.bind(this);
+  }
+
+  componentDidMount () {
+    this.setState({
+      localVotes: this.props.post.votes,
+    });
   }
 
   openModal() {
@@ -46,16 +56,28 @@ export default class Post extends React.Component {
   }
 
   removePost () {
-
+    request.del(this.postURL).then(() => {
+      this.props.refreshList();
+    });
   }
 
   addVote (increment) {
-
+    this.props.post.votes += increment;
+    request.post(this.postURL)
+           .send(this.props.post)
+           .then(() => {
+              this.setState({
+                localVotes: this.props.post.votes,
+              });
+           });
   }
 
   render () {
     return (
-
+      <div>
+        <p>{this.props.post.text}</p>
+        <
+      </div>
     );
   }
 }
