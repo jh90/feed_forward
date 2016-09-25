@@ -1,7 +1,7 @@
 import React from 'react';
 import request from 'superagent';
 
-import Post from './post.jsx';
+import Post from './post-handlers/post.jsx';
 
 const propTypes = {
   params: React.PropTypes.string,

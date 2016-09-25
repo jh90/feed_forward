@@ -21,7 +21,7 @@ class Register extends React.Component {
     this.setState(inputState);
   }
 
-  handleSubmit (e) {
+  handleSubmit () {
     const {user, password, name} = this.state;
     firebase.auth()
             .createUserWithEmailAndPassword(user, password)
@@ -42,7 +42,7 @@ class Register extends React.Component {
     return (
       <div>
         <h1>Register</h1>
-        <div id="register-form">
+        <div addClass='register-form'>
           <div>
             <input name="user" onChange={this.handleChange} type="text" placeholder="Username" />
           </div>

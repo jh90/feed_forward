@@ -6,7 +6,7 @@ import Feed from '../components/feed.jsx';
 import UserList from '../components/user_list.jsx';
 import LoginForm from '../components/login_form.jsx';
 import RegisterForm from '../components/register_form.jsx';
-import NewPostForm from '../components/new_post_form.jsx';
+import NewPostForm from '../components/post-handlers/new_post_form.jsx';
 
 const Routes = () => {
   return (
@@ -17,9 +17,6 @@ const Routes = () => {
           <Route path='all' component={UserList} />
           <Route path=':uid' component={Feed} />
         </Route>
-        <Route path='postviews'>
-          <Route path=':pid' component={PostViewPage} />
-        </Route
         <Route path='login' component={LoginForm} />
         <Route path='register' component={RegisterForm} />
         <Route path='new_post' component={NewPostForm} />

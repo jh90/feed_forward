@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router';
 import request from 'superagent';
 
-import Post from './post.jsx';
+import Post from './post-handlers/post.jsx';
 
 export default class UserList extends React.Component {
   getLastPostOfEachUser () {

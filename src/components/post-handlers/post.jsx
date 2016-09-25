@@ -10,6 +10,10 @@ const propTypes = {
   refreshList: React.PropTypes.func.isRequired,
 };
 
+const modalStyle = {
+
+};
+
 export default class Post extends React.Component {
   constructor (props) {
     super(props);
