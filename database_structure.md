@@ -13,8 +13,7 @@
         .timestamp
         .votes
         .comments
-            .:CIDs
+            /:CIDs
                 .text
-                .header
                 .commenter-uid
                 .timestamp
