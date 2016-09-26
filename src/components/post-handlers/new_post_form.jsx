@@ -1,8 +1,9 @@
 import React from 'react';
+import {withRouter} from 'react-router';
 import request from 'superagent';
 import firebase from '../../../firebase.config.js';
 
-export default class NewPostForm extends React.Component {
+class NewPostForm extends React.Component {
   constructor () {
     super();
     this.state = {
@@ -42,7 +43,7 @@ export default class NewPostForm extends React.Component {
   handleSubmit () {
     const baseURL = 'https://feedforwardt2.firebaseio.com/posts.json';
     request.post(baseURL).send(this.state).then((response) => {
-      console.log(response);
+      this.props.router.push('/');
     });
   }
 
@@ -50,18 +51,14 @@ export default class NewPostForm extends React.Component {
     return (
       <div>
         <h1>New Post</h1>
-        <div className='new-post-form'>
-          <div>
-            <label>Link:
-            <input name='link' onChange={this.handleChange} type='text' placeholder='URL' />
-            </label>
-          </div>
-          <div>
-            <input name='text' onChange={this.handleChange} type='text' placeholder='Thoughts?' />
-          </div>
-          <button className='post-button' onClick={this.handleSubmit}>Submit Post</button>
-        </div>
+        <form id='post-form'>
+          <input id='link-field' name='link' onChange={this.handleChange} type='text' placeholder='URL' />
+          <input id='text-field' name='text' onChange={this.handleChange} type='text' placeholder='Thoughts?' />
+        </form>
+        <button className='post-button' onClick={this.handleSubmit}>Submit Post</button>
       </div>
     );
   }
 }
+
+export default withRouter(NewPostForm);

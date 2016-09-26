@@ -9,6 +9,7 @@ const propTypes = {
   post: React.PropTypes.object.isRequired,
   postID: React.PropTypes.string.isRequired,
   refreshList: React.PropTypes.func.isRequired,
+  isInUserList: React.PropTypes.bool,
 };
 
 export default class Post extends React.Component {
