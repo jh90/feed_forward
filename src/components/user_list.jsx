@@ -29,9 +29,9 @@ export default class UserList extends React.Component {
     const usersURL = 'https://feedforwardt2.firebaseio.com/users.json';
     let userAlias = '';
     return (
-      <div>
+      <div className='user-list'>
         {
-          samplePosts.map((post) => {
+          $.map(samplePosts, (post) => {
             request.get(usersURL).then((response) => {
               userAlias = response.body[post.posterID].alias;
               return (

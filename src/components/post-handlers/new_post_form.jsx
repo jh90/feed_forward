@@ -18,9 +18,17 @@ export default class NewPostForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  getTimestamp () {
+    const now = new Date();
+    const date = `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()}`;
+    const time = `${now.getHours()}:${now.getMinutes()}`;
+    return `${time} on ${date}`;
+  }
+
   componentDidMount () {
     this.setState({
       posterID: firebase.auth().currentUser.uid,
+      timestamp: this.getTimestamp(),
     });
   }
 
@@ -31,16 +39,11 @@ export default class NewPostForm extends React.Component {
     this.setState(inputState);
   }
 
-  getTimestamp () {
-    const now = new Date();
-    const date = `${now.getDate()} / ${now.getMonth()+1} / ${now.getFullYear()}`;
-    const time = `${now.getHours()} : ${now.getMinutes()} : ${now.getSeconds()}`;
-    return `${time} on ${date}`;
-  }
-
   handleSubmit () {
     const baseURL = 'https://feedforwardt2.firebaseio.com/posts.json';
-    request.post(baseURL).send(this.state);
+    request.post(baseURL).send(this.state).then((response) => {
+      console.log(response);
+    });
   }
 
   render () {
@@ -56,7 +59,6 @@ export default class NewPostForm extends React.Component {
           <div>
             <input name='text' onChange={this.handleChange} type='text' placeholder='Thoughts?' />
           </div>
-          <input name='timestamp' onChange={this.handleChange} type='hidden' value={this.getTimestamp} />
           <button className='post-button' onClick={this.handleSubmit}>Submit Post</button>
         </div>
       </div>

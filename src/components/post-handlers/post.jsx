@@ -7,6 +7,7 @@ import CommentList from '../comment-handlers/comment_list.jsx';
 
 const propTypes = {
   post: React.PropTypes.object.isRequired,
+  postID: React.PropTypes.string.isRequired,
   refreshList: React.PropTypes.func.isRequired,
 };
 
@@ -28,7 +29,7 @@ export default class Post extends React.Component {
     this.setState({
       localVotes: this.props.post.votes,
     });
-    this.postURL = `https://feedforwardt2.firebaseio.com/posts/${this.props.post.id}`;
+    this.postURL = `https://feedforwardt2.firebaseio.com/posts/${this.props.postID}`;
   }
 
   openModal() {
@@ -91,7 +92,7 @@ export default class Post extends React.Component {
               +</button>
           </div>
           <PostView post={this.props.post} inModal={true} />
-          <CommentList postID={this.props.post.id} />
+          <CommentList postID={this.props.postID} />
         </Modal>
       </div>
     );
