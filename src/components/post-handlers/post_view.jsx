@@ -1,6 +1,5 @@
 import React from 'react';
-import firebase from '../../firebase.config.js';
-import linkPreview from 'link-preview';
+import firebase from '../../../firebase.config.js';
 
 import RemoveButton from '../remove_button.jsx';
 
@@ -14,15 +13,17 @@ export default class PostView extends React.Component {
   constructor () {
     super();
     this.state = {
-      isCurrentUser = false,
+      isCurrentUser: false,
     };
   }
 
   componentDidMount () {
-    if (this.props.post.poster-id === firebase.auth().currentUser.uid) {
-      this.setState({
-        isCurrentUser = true,
-      });
+    if (firebase.auth().currentUser) {
+      if (this.props.post.posterID === firebase.auth().currentUser.uid) {
+        this.setState({
+          isCurrentUser: true,
+        });
+      }
     }
   }
 
@@ -30,10 +31,9 @@ export default class PostView extends React.Component {
     return (
       <div>
         <p>{this.props.post.text}</p>
-        <div>{linkPreview.parse(this.props.post.link);}</div>
         { this.props.inModal
           ? false
-          : <h3>Posted by {this.props.post.poster-alias} at {this.props.post.timestamp}</h3> }
+          : <h3>Posted by {this.props.post.posterAlias} at {this.props.post.timestamp}</h3> }
         { this.state.isCurrentUser && !this.props.inModal
           ? <RemoveButton remove={this.props.removePost} />
           : false }

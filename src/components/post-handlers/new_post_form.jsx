@@ -6,8 +6,8 @@ export default class NewPostForm extends React.Component {
   constructor () {
     super();
     this.state = {
-      poster-id: '',
-      poster-alias: '',
+      posterID: '',
+      posterAlias: '',
       link: '',
       text: '',
       timestamp: '',
@@ -20,7 +20,7 @@ export default class NewPostForm extends React.Component {
 
   componentDidMount () {
     this.setState({
-      poster-id: firebase.auth().currentUser.uid;
+      posterID: firebase.auth().currentUser.uid,
     });
   }
 
@@ -38,29 +38,16 @@ export default class NewPostForm extends React.Component {
     return `${time} on ${date}`;
   }
 
-  getPosterAlias () {
-    const url = `https://feedforward-968b7.firebaseio.com/users/${poster-id}`;
-    request.get(url).then((response) => {
-      return response.body.alias;
-    });
-  }
-
   handleSubmit () {
-    const baseURL = 'https://feedforward-968b7.firebaseio.com/posts.json';
-    const postID;
-    request.post(baseURL).send(this.state)
-                         .then((response) => {
-                            postID = response.name;
-                         });
-    const postURL = `https://feedforward-968b7.firebaseio.com/posts/${id}`;
-    request.post(postURL).send({id: postID});
+    const baseURL = 'https://feedforwardt2.firebaseio.com/posts.json';
+    request.post(baseURL).send(this.state);
   }
 
   render () {
     return (
       <div>
         <h1>New Post</h1>
-        <div addClass='new-post-form'>
+        <div className='new-post-form'>
           <div>
             <label>Link:
             <input name='link' onChange={this.handleChange} type='text' placeholder='URL' />
@@ -69,9 +56,8 @@ export default class NewPostForm extends React.Component {
           <div>
             <input name='text' onChange={this.handleChange} type='text' placeholder='Thoughts?' />
           </div>
-          <input name='poster-alias' onChange={this.handleChange} type='hidden' value={this.getPosterAlias} />
           <input name='timestamp' onChange={this.handleChange} type='hidden' value={this.getTimestamp} />
-          <button addClass='post-button' onClick={this.handleSubmit}>Submit Post</button>
+          <button className='post-button' onClick={this.handleSubmit}>Submit Post</button>
         </div>
       </div>
     );

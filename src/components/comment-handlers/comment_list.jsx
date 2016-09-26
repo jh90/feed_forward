@@ -6,7 +6,7 @@ import Comment from './comment.jsx';
 import NewCommentForm from './new_comment_form.jsx';
 
 const propTypes = {
-  post-id: React.PropTypes.string.isRequired,
+  postID: React.PropTypes.string.isRequired,
 };
 
 export default class CommentList extends React.Component {
@@ -25,7 +25,7 @@ export default class CommentList extends React.Component {
   }
 
   getPostComments () {
-    const url = `https://feedforward-968b7.firebaseio.com/posts/${this.props.post.id}`;
+    const url = `https://feedforwardt2.firebaseio.com/posts/${this.props.post.id}`;
     request.get(url).then((response) => {
       this.setState({
         comments: response.body.comments,
@@ -33,15 +33,15 @@ export default class CommentList extends React.Component {
     });
   }
 
-  deleteComment () {
-    const url = `https://feedforward-968b7.firebaseio.com/posts/${this.props.post.id}/comments/${cid}`;
+  deleteComment (cid) {
+    const url = `https://feedforwardt2.firebaseio.com/posts/${this.props.post.id}/comments/${cid}`;
     request.del(url).then(() => {
       this.getPostComments();
     });
   }
 
   getCommenterAlias (comment) {
-    const url = `https://feedforward-968b7.firebaseio.com/users/${comment.commenter-uid}`;
+    const url = `https://feedforwardt2.firebaseio.com/users/${comment.submitterUID}`;
     request.get(url).then((response) => {
       return response.body.alias;
     });
@@ -49,22 +49,24 @@ export default class CommentList extends React.Component {
 
   render () {
     return (
-      <div addClass='comments-wrapper'>
-        <div addClass='comment-list'>
+      <div className='comments-wrapper'>
+        <div className='comment-list'>
           {
-            this.state.comments.map((comment, cid) => {
+            $.map(this.state.comments, (comment, cid) => {
               return (
                 <Comment comment={comment}
-                         comment-id={cid}
+                         commentID={cid}
                          commenter={this.getCommenterAlias(comment)}
                          deleteComment={this.deleteComment}
+                         postID={this.props.postID}
+                         key={cid}
                       />
               );
-            });
+            })
           }
         </div>
         { firebase.auth().currentUser
-          ? <NewCommentForm getPostComments={this.getPostComments} post-id={this.props.post-id} />
+          ? <NewCommentForm getPostComments={this.getPostComments} postID={this.props.postID} />
           : false }
       </div>
     );

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import {Link} from 'react-router';
 import request from 'superagent';
@@ -6,7 +7,7 @@ import Post from './post-handlers/post.jsx';
 
 export default class UserList extends React.Component {
   getLastPostOfEachUser () {
-    const postsURL = 'https://feedforward-968b7.firebaseio.com/posts';
+    const postsURL = 'https://feedforwardt2.firebaseio.com/posts.json';
     request.get(postsURL).then((response) => {
       const allPosts = Array.from(response.body);
       allPosts.reverse();
@@ -14,9 +15,9 @@ export default class UserList extends React.Component {
       const usersAddedToList = [];
       const lastPosts = [];
       allPosts.forEach((post) => {
-        if (!usersAddedToList.include(post.poster-id)) {
+        if (!usersAddedToList.include(post.posterID)) {
           lastPosts.push(post);
-          usersAddedToList.push(post.poster-id);
+          usersAddedToList.push(post.posterID);
         }
       });
       return lastPosts;
@@ -24,20 +25,22 @@ export default class UserList extends React.Component {
   }
 
   render () {
+    const samplePosts = this.getLastPostOfEachUser();
+    const usersURL = 'https://feedforwardt2.firebaseio.com/users.json';
+    let userAlias = '';
     return (
       <div>
         {
-          const samplePosts = this.getLastPostOfEachUser();
-          const usersURL = 'https://feedforward-968b7.firebaseio.com/users';
           samplePosts.map((post) => {
-            const userAlias;
             request.get(usersURL).then((response) => {
-              userAlias = response.body[post.poster-id].alias;
+              userAlias = response.body[post.posterID].alias;
+              return (
+                <div>
+                  <Link to='/users/{post.posterID}' className='user-link'>{userAlias}</Link>
+                  <Post post={post} />
+                </div>
+              );
             });
-            return (
-              <Link to=`/users/${post.poster-id}` className='user-link'>{userAlias}</Link>
-              <Post post={post} />
-            );
           })
         }
       </div>

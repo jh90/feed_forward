@@ -42,7 +42,7 @@ class Register extends React.Component {
     return (
       <div>
         <h1>Register</h1>
-        <div addClass='register-form'>
+        <div className='register-form'>
           <div>
             <input name="user" onChange={this.handleChange} type="text" placeholder="Username" />
           </div>
@@ -50,7 +50,7 @@ class Register extends React.Component {
             <input name="password" onChange={this.handleChange} type="password" placeholder="Password" />
           </div>
           <div>
-            <input name="name" onChange={this.handleChange} type="text" placeholder="Alias"
+            <input name="name" onChange={this.handleChange} type="text" placeholder="Alias" />
           </div>
           <button className="auth-button" onClick={this.handleSubmit}>Register</button>
         </div>

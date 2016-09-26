@@ -1,11 +1,11 @@
 const firebase = require('firebase');
 
 const config = {
-    apiKey: "AIzaSyCsgt7ZuxsJ82_XU8TkOui0JAEJpaZuPzs",
-    authDomain: "feedforward-968b7.firebaseapp.com",
-    databaseURL: "https://feedforward-968b7.firebaseio.com",
-    storageBucket: "feedforward-968b7.appspot.com",
-    messagingSenderId: "191860792729"
+    apiKey: "AIzaSyDtF7INc40vaKdZQvwwH65xssFh7E_KhC0",
+    authDomain: "feedforwardt2.firebaseapp.com",
+    databaseURL: "https://feedforwardt2.firebaseio.com",
+    storageBucket: "feedforwardt2.appspot.com",
+    messagingSenderId: "824770228681"
   };
 
 firebase.initializeApp(config);

@@ -1,16 +1,10 @@
-BONUS: allow comments to reply to other comments -
-  state{inreplyto:[null]}
-    => pass to NewCommentForm
-      =>post via third hidden input, but also if!null display text indicating target
-  CommentList.setReplyTarget(alias)
-    => pass to Comment
-
 import React from 'react';
 import request from 'superagent';
 import firebase from '../../../firebase.config.js';
 
 const propTypes = {
   getPostComments: React.PropTypes.func.isRequired,
+  postID: React.PropTypes.string.isRequired,
 };
 
 export default class NewCommentForm extends React.Component {
@@ -33,7 +27,7 @@ export default class NewCommentForm extends React.Component {
   }
 
   handleSubmit () {
-    const url = `https://feedforward-968b7.firebaseio.com/posts/${this.props.post.id}/comments.json`;
+    const url = `https://feedforwardt2.firebaseio.com/posts/${this.props.postID}/comments.json`;
     request.post(url).send(this.state).then(() => {
       this.props.getPostComments();
     });
@@ -50,7 +44,7 @@ export default class NewCommentForm extends React.Component {
     return (
       <div>
         <h3>New Comment</h3>
-        <div id="comment-form">
+        <div className="comment-form">
           <div>
             <input name="commentText" onChange={this.handleChange} type="text"
                    placeholder="Post a comment" />

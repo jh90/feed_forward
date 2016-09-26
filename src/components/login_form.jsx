@@ -1,7 +1,8 @@
 import React from 'react';
+import {withRouter} from 'react-router';
 import firebase from '../../firebase.config.js';
 
-export default class Login extends React.Component {
+class LoginForm extends React.Component {
   constructor () {
     super();
     this.state = {
@@ -24,7 +25,6 @@ export default class Login extends React.Component {
     firebase.auth()
       .signInWithEmailAndPassword(user, password)
       .catch((err) => {
-    //LATER: change from console.log to alert/pagemessage/..?
         console.log(`${err.code} ${err.message}`);
       })
       .then(() => {
@@ -36,7 +36,7 @@ export default class Login extends React.Component {
     return (
       <div>
         <h1>Login</h1>
-        <div id="login-form">
+        <div className='login-form'>
           <div>
             <input name="user" onChange={this.handleChange} type="text" placeholder="Email" />
           </div>
@@ -49,3 +49,5 @@ export default class Login extends React.Component {
     );
   }
 }
+
+export default withRouter(LoginForm);

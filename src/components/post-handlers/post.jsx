@@ -10,10 +10,6 @@ const propTypes = {
   refreshList: React.PropTypes.func.isRequired,
 };
 
-const modalStyle = {
-
-};
-
 export default class Post extends React.Component {
   constructor (props) {
     super(props);
@@ -21,7 +17,7 @@ export default class Post extends React.Component {
       modalOpen: false,
       localVotes: 0,
     };
-    this.postURL = `https://feedforward-968b7.firebaseio.com/posts/${this.props.post.id}`;
+    this.postURL = '';
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.removePost = this.removePost.bind(this);
@@ -32,6 +28,7 @@ export default class Post extends React.Component {
     this.setState({
       localVotes: this.props.post.votes,
     });
+    this.postURL = `https://feedforwardt2.firebaseio.com/posts/${this.props.post.id}`;
   }
 
   openModal() {
@@ -65,7 +62,7 @@ export default class Post extends React.Component {
 
   handleVote (e) {
     const voteType = e.target.name;
-    const voteValue;
+    let voteValue = 0;
     if (voteType === 'upvote') {
       voteValue = 1;
     }
@@ -83,19 +80,18 @@ export default class Post extends React.Component {
         <Modal
           isOpen={this.state.modalOpen}
           onRequestClose={this.closeModal}
-          shouldCloseOnOverlayClick={false}
-          style={modalStyle} >
+          shouldCloseOnOverlayClick={false} >
 
-          <button addClass='close-button' onClick={this.closeModal}>X</button>
-          <div addClass='voting-display'>
-            <button name='downvote' addClass='vote-button' onClick{this.handleVote}>
+          <button className='close-button' onClick={this.closeModal}>X</button>
+          <div className='voting-display'>
+            <button name='downvote' className='vote-button' onClick={this.handleVote}>
               -</button>
             <h2>{this.state.localVotes}</h2>
-            <button name='upvote' addClass='vote-button' onClick{this.handleVote}>
+            <button name='upvote' className='vote-button' onClick={this.handleVote}>
               +</button>
           </div>
           <PostView post={this.props.post} inModal={true} />
-          <CommentList post-id={this.props.post.id} />
+          <CommentList postID={this.props.post.id} />
         </Modal>
       </div>
     );

@@ -4,38 +4,40 @@ import request from 'superagent';
 import Post from './post-handlers/post.jsx';
 
 const propTypes = {
-  params: React.PropTypes.string,
+  params: React.PropTypes.object,
 };
 
 export default class Feed extends React.Component {
-  constructor () {
-    super();
+  constructor (props) {
+    super(props);
     this.state = {
       isMain: true,
       orderByVotes: false,
-      posts: [],
+      posts: {},
     };
-    this.handleListContent = this.handleListContent.bind(this);
+    this.getPosts = this.getPosts.bind(this);
+    this.handleReordering = this.handleReordering.bind(this);
+  }
+
+  getPosts () {
+    const url = 'https://feedforwardt2.firebaseio.com/posts.json';
+    request.get(url).then((response) => {
+      const postList = response.body;
+      console.log(postList);
+      this.setState({
+        posts: postList,
+      });
+      console.log(this.state.posts);
+    });
   }
 
   componentDidMount () {
-    if (this.props.params) {
+    if (this.props.params.uid) {
       this.setState({
         isMain: false,
       });
     }
-    this.handleListContent();
-  }
-
-  getPosts () {
-    const url = 'https://feedforward-968b7.firebaseio.com/posts';
-    const allPosts;
-    request.get(url).then((response) => {
-      allPosts = response.body;
-      const postList = Array.from(allPosts);
-      postList.reverse();
-      return postList;
-    });
+    this.getPosts();
   }
 
   sortByVotes (postArray) {
@@ -43,30 +45,6 @@ export default class Feed extends React.Component {
       return a.votes - b.votes;
     });
     return postArray;
-  }
-
-  handleListContent () {
-    const postList = this.getPosts();
-    if (this.state.orderByVotes) {
-      postList = this.sortByVotes(postList);
-    }
-
-    if (this.state.isMain) {
-      this.setState({
-        posts: postList,
-      });
-    }
-    else {
-      const individualUserPosts = [];
-      postList.forEach((post) => {
-        if (post.poster-id === this.props.params.uid) {
-          individualUserPosts.push(post);
-        }
-      });
-      this.setState({
-        posts: individualUserPosts,
-      });
-    }
   }
 
   handleReordering () {
@@ -80,20 +58,21 @@ export default class Feed extends React.Component {
         orderByVotes: false,
       });
     }
-    this.handleListContent();
+    this.getPosts();
   }
 
   render () {
+    console.log(this.state.posts);
     return (
       <div>
         <button className='order-button' onClick={this.handleReordering}>
-          {this.state.orderByVotes ? 'Highest Voted' : 'Most Recent'}
+          {this.state.orderByVotes ? 'Most Recent' : 'Highest Voted'}
         </button>
-        <div id='feed'>
+        <div className='feed'>
           {
-            this.state.posts.map((post) => {
+            $.map(this.state.posts, (post, id) => {
               return (
-                <Post post={post} refreshList={this.handleListContent} />
+                <Post post={post} key={id} postID={id} refreshList={this.getPosts} />
               );
             })
           }

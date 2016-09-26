@@ -6,7 +6,7 @@ const propTypes = {
 
 const RemoveButton = () => {
   return (
-    <button addClass='remove-button' onClick={this.props.remove}>Delete</button>
+    <button className='remove-button' onClick={this.props.remove}>Delete</button>
   );
 };
 
