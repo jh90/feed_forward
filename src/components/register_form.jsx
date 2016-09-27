@@ -23,15 +23,16 @@ class Register extends React.Component {
 
   handleSubmit () {
     const {user, password, name} = this.state;
+    console.log(this.state);
+    console.log(name);
     firebase.auth()
             .createUserWithEmailAndPassword(user, password)
-            .catch((err) => {
-              console.log(`${err.code} ${err.message}`);
-            })
+
             .then((registrant) => {
+              registrant.updateProfile({displayName: name});
               firebase.database().ref('users')
                       .child(registrant.uid)
-                      .set({alias: name, email: user, id: registrant.uid})
+                      .set({displayName: name, email: user, id: registrant.uid})
             })
             .then(() => {
               this.props.router.push('/');
@@ -44,7 +45,7 @@ class Register extends React.Component {
         <h1>Register</h1>
         <div className='register-form'>
           <div>
-            <input name="user" onChange={this.handleChange} type="text" placeholder="Username" />
+            <input name="user" onChange={this.handleChange} type="text" placeholder="Email" />
           </div>
           <div>
             <input name="password" onChange={this.handleChange} type="password" placeholder="Password" />

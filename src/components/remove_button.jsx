@@ -4,9 +4,9 @@ const propTypes = {
   remove: React.PropTypes.func.isRequired,
 };
 
-const RemoveButton = () => {
+const RemoveButton = ({remove}) => {
   return (
-    <button className='remove-button' onClick={this.props.remove}>Delete</button>
+    <button className='remove-button' onClick={remove}>Delete</button>
   );
 };
 

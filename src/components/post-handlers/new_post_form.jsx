@@ -27,9 +27,12 @@ class NewPostForm extends React.Component {
   }
 
   componentDidMount () {
+    console.log(firebase.auth().currentUser.uid);
+    console.log(firebase.auth().currentUser.displayName);
     this.setState({
       posterID: firebase.auth().currentUser.uid,
       timestamp: this.getTimestamp(),
+      posterAlias: firebase.auth().currentUser.displayName,
     });
   }
 
@@ -41,6 +44,7 @@ class NewPostForm extends React.Component {
   }
 
   handleSubmit () {
+    console.log(this.state);
     const baseURL = 'https://feedforwardt2.firebaseio.com/posts.json';
     request.post(baseURL).send(this.state).then((response) => {
       this.props.router.push('/');

@@ -19,6 +19,13 @@ export default class NewCommentForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount () {
+    this.setState({
+      submitterUID: firebase.auth().currentUser.uid,
+      timestamp: this.getTimestamp(),
+    });
+  }
+
   handleChange (e) {
     const inputState = {};
     const inputKey = e.target.name;
@@ -27,10 +34,7 @@ export default class NewCommentForm extends React.Component {
   }
 
   handleSubmit () {
-    const url = `https://feedforwardt2.firebaseio.com/posts/${this.props.postID}/comments.json`;
-    request.post(url).send(this.state).then(() => {
-      this.props.getPostComments();
-    });
+    firebase.database().ref(`posts/${this.props.postID}/comments`).push(this.state);
   }
 
   getTimestamp () {
@@ -45,14 +49,8 @@ export default class NewCommentForm extends React.Component {
       <div>
         <h3>New Comment</h3>
         <div className="comment-form">
-          <div>
-            <input name="commentText" onChange={this.handleChange} type="text"
-                   placeholder="Post a comment" />
-            <input name="submitterUID" onChange={this.handleChange} type="hidden"
-                   value={firebase.auth().currentUser.uid} />
-            <input name="timestamp" onChange={this.handleChange} type="hidden"
-                   value={this.getTimestamp} />
-          </div>
+          <input name="commentText" onChange={this.handleChange} type="text"
+                 placeholder="Post a comment" />
           <button className="comment-button" onClick={this.handleSubmit}>Submit</button>
         </div>
       </div>

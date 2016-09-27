@@ -19,7 +19,7 @@ export default class Comment extends React.Component {
     return (
       <div className='comment'>
         <h4>{this.props.commenter} wrote on {this.props.comment.timestamp}</h4>
-        <p>{this.props.comment.text}</p>
+        <p>{this.props.comment.commentText}</p>
         { firebase.auth().currentUser.uid === this.props.comment.commenterID
           ? <RemoveButton remove={this.handleDelete} />
           : false }

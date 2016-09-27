@@ -1,6 +1,7 @@
 import React from 'react';
 import Modal from 'react-modal';
 import request from 'superagent';
+import firebase from '../../../firebase.config.js';
 
 import PostView from './post_view.jsx';
 import CommentList from '../comment-handlers/comment_list.jsx';
@@ -9,7 +10,6 @@ const propTypes = {
   post: React.PropTypes.object.isRequired,
   postID: React.PropTypes.string.isRequired,
   refreshList: React.PropTypes.func.isRequired,
-  isInUserList: React.PropTypes.bool,
 };
 
 export default class Post extends React.Component {
@@ -24,6 +24,7 @@ export default class Post extends React.Component {
     this.closeModal = this.closeModal.bind(this);
     this.removePost = this.removePost.bind(this);
     this.addVote = this.addVote.bind(this);
+    this.handleVote = this.handleVote.bind(this);
   }
 
   componentDidMount () {
@@ -52,14 +53,13 @@ export default class Post extends React.Component {
   }
 
   addVote (increment) {
-    this.props.post.votes += increment;
-    request.post(this.postURL)
-           .send(this.props.post)
-           .then(() => {
-              this.setState({
-                localVotes: this.props.post.votes,
-              });
-           });
+    const newVote = this.props.post.votes + increment;
+    const votesPath = `posts/${this.props.postID}/votes`;
+    const votesRef = firebase.database().ref(votesPath);
+    votesRef.set(newVote);
+    this.setState({
+      localVotes: newVote,
+    });
   }
 
   handleVote (e) {
@@ -68,8 +68,11 @@ export default class Post extends React.Component {
     if (voteType === 'upvote') {
       voteValue = 1;
     }
-    else {
+    else if (voteType === 'downvote') {
       voteValue = -1;
+    }
+    else {
+      console.log('error');
     }
     this.addVote(voteValue);
   }
@@ -93,7 +96,7 @@ export default class Post extends React.Component {
               +</button>
           </div>
           <PostView post={this.props.post} inModal={true} />
-          <CommentList postID={this.props.postID} />
+          <CommentList postID={this.props.postID} post={this.props.post} />
         </Modal>
       </div>
     );

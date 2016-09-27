@@ -5,8 +5,8 @@
         .id
 /posts
     /:PIDs
-        .poster-id
-        .poster-alias
+        .posterID
+        .posterAlias
         .id
         .link
         .text

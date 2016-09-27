@@ -7,6 +7,7 @@ import NewCommentForm from './new_comment_form.jsx';
 
 const propTypes = {
   postID: React.PropTypes.string.isRequired,
+  post: React.PropTypes.object,
 };
 
 export default class CommentList extends React.Component {
@@ -25,26 +26,22 @@ export default class CommentList extends React.Component {
   }
 
   getPostComments () {
-    const url = `https://feedforwardt2.firebaseio.com/posts/${this.props.post.id}`;
-    request.get(url).then((response) => {
+    const path = `posts/${this.props.postID}/comments/`;
+    const postRef = firebase.database().ref(path);
+    postRef.on('value', (snapshot) => {
       this.setState({
-        comments: response.body.comments,
+        comments: snapshot.val(),
       });
     });
   }
 
   deleteComment (cid) {
-    const url = `https://feedforwardt2.firebaseio.com/posts/${this.props.post.id}/comments/${cid}`;
-    request.del(url).then(() => {
-      this.getPostComments();
-    });
+    const commentRef = firebase.database().ref(`posts/${this.props.postID}/comments/${cid}`);
+    commentRef.remove();
   }
 
-  getCommenterAlias (comment) {
-    const url = `https://feedforwardt2.firebaseio.com/users/${comment.submitterUID}`;
-    request.get(url).then((response) => {
-      return response.body.alias;
-    });
+  getCommenterAlias () {
+    return firebase.auth().currentUser.displayName;
   }
 
   render () {
@@ -56,7 +53,7 @@ export default class CommentList extends React.Component {
               return (
                 <Comment comment={comment}
                          commentID={cid}
-                         commenter={this.getCommenterAlias(comment)}
+                         commenter={this.getCommenterAlias()}
                          deleteComment={this.deleteComment}
                          postID={this.props.postID}
                          key={cid}

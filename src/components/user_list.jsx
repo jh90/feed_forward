@@ -39,24 +39,18 @@ export default class UserList extends React.Component {
     const usersURL = 'https://feedforwardt2.firebaseio.com/users.json';
     let poster = '';
     let userAlias = '';
+    const elements = $.map(this.state.mostRecentUserPosts, (post, postID) => {
+      const path = `/users/${postID}`;
+      return (
+        <div id='user-entry'>
+          <Link to={path}>{post.posterAlias}</Link>
+          <Post post={post} postID={postID} refreshList={this.getLastPostOfEachUser}/>
+        </div>
+      );
+    });
     return (
-      <div>
-        {
-          $.map(this.state.mostRecentUserPosts, (post, postID) => {
-            request.get(usersURL).then((response) => {
-              poster = response.body[post.posterID];
-              userAlias = poster.alias;
-            })
-            .then(() => {
-              return (
-                <div>
-                  <Link to='/users/{post.posterID}' className='user-link'>{userAlias}</Link>
-                  <Post post={post} postID={postID} refreshList={this.getLastPostOfEachUser} />
-                </div>
-              );
-            });
-          })
-        }
+      <div className='dummy'>
+        {elements}
       </div>
     );
   }
