@@ -1,6 +1,5 @@
 import React from 'react';
 import firebase from '../../../firebase.config.js';
-import LinkPreview from 'link-preview';
 
 import RemoveButton from '../remove_button.jsx';
 
@@ -31,7 +30,6 @@ export default class PostView extends React.Component {
   render () {
     return (
       <div>
-        <div>{linkPreview.parse(this.props.post.link)}</div>
         <p>{this.props.post.text}</p>
         { this.props.inModal
           ? false

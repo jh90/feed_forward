@@ -76,6 +76,10 @@ export default class Main extends React.Component {
   render () {
     return (
       <div>
+        <div id='ffw'>
+          <img id='f' src='http://www.charbase.com/images/glyph/8750'/><h1 id='fw'>FW</h1>
+          <h4 id='subhead'><span>feed</span>Forward</h4>
+        </div>
         <div id='tools'>
           {this.toggleOptionsByAuthState()}
           {this.toggleNavByLocation()}

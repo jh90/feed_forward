@@ -50,6 +50,29 @@
   margin-top: 50px;
 }
 
+#ffw {
+  width: 120px;
+}
+
+#f {
+  height: 60px;
+  width: 60px;
+}
+
+#fw {
+  float: right;
+  z-index: 2;
+}
+
+#subhead {
+  margin-left: 20px;
+  margin-top: 0px;
+}
+
+span {
+  font-style: italic;
+}
+
 /*.post {
   background-color: rgba(255,255,255,0.15);
   border-radius: 8px;
