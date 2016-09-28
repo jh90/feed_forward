@@ -35,17 +35,19 @@ export default class Main extends React.Component {
   toggleOptionsByAuthState () {
     if(!this.state.loggedIn) {
       return (
-        <div className='opt-links'>
-          <Link to='/login' id='login'>Login</Link>
-          <Link to='/register' id='register'>Register</Link>
-        </div>
+        <ul id='opt-table'>
+          <li className='main-link-items'><Link to='/login' className='main-links'>Login</Link></li>
+          <li className='main-link-items'><Link to='/register' className='main-links'>Register</Link></li>
+        </ul>
       );
     }
     else {
       return (
-        <div className='opt-links'>
-          <Link to='/new_post'>New Post</Link>
-          <Link to='/' onClick={this.signOut}>Sign Out</Link>
+        <div id='opt-table'>
+          <li className='main-link-items'><Link to='/new_post' className='main-links'>New Post
+          </Link></li>
+          <li className='main-link-items'><Link to='/' onClick={this.signOut} className='main-links'>Sign Out
+          </Link></li>
         </div>
       );
     }
@@ -54,17 +56,19 @@ export default class Main extends React.Component {
   toggleNavByLocation () {
     if(this.props.location.pathname !== '/') {
       return (
-        <div className='nav-links'>
-          <Link to='/'>All Posts</Link>
-          <Link to='/users/all'>Browse Feeds</Link>
-        </div>
+        <ul id='nav-table'>
+          <li className='main-link-items'><Link to='/' className='main-links'>All Posts
+          </Link></li>
+          <li className='main-link-items'><Link to='main/users/all' className='main-links'>Browse Feeds
+          </Link></li>
+        </ul>
       );
     }
     else {
       return (
-        <div className='nav-links'>
-          <Link to='/users/all'>Browse Feeds</Link>
-        </div>
+        <ul id='nav-table'>
+          <li className='main-links'><Link to='main/users/all' className='main-links'>Browse Feeds</Link></li>
+        </ul>
       );
     }
   }
@@ -72,12 +76,11 @@ export default class Main extends React.Component {
   render () {
     return (
       <div>
-        <h1>fFW</h1>
-        <div>
+        <div id='tools'>
           {this.toggleOptionsByAuthState()}
           {this.toggleNavByLocation()}
         </div>
-        <div>
+        <div id='content'>
           {this.props.children}
         </div>
       </div>

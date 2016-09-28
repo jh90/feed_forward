@@ -1,5 +1,5 @@
 import React from 'react';
-import {withRouter} from 'react-router';
+import {withRouter, Link} from 'react-router';
 import firebase from '../../firebase.config.js';
 
 class Register extends React.Component {
@@ -55,6 +55,7 @@ class Register extends React.Component {
           </div>
           <button className="auth-button" onClick={this.handleSubmit}>Register</button>
         </div>
+        <Link to='/' id='back-to-main'>Home</Link>
       </div>
     );
   }

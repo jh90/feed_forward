@@ -79,7 +79,7 @@ export default class Post extends React.Component {
 
   render () {
     return (
-      <div>
+      <div className='post'>
         <PostView post={this.props.post} removePost={this.removePost} inModal={false} />
         <p onClick={this.openModal}>Click to vote and comment</p>
         <Modal

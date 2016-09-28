@@ -1,0 +1,59 @@
+#tools {
+  display: inline-block;
+  padding: 0;
+  width: 15%;
+  position: fixed;
+  margin-top: 130px;
+}
+
+.main-links {
+  display: block;
+  text-decoration: none;
+  color: black;
+}
+
+#nav-table {
+  list-style: none;
+  display: block;
+  position: relative;
+  width: 100%;
+  margin: 0;
+  border: 2px solid black;
+  padding: 0;
+  background-color: black;
+}
+
+#opt-table {
+  list-style: none;
+  display: block;
+  position: relative;
+  width: 100%;
+  margin: 0;
+  border: 2px solid black;
+  padding: 0;
+  background-color: black;
+}
+
+.main-link-items {
+  list-style: none;
+  background-color: white;
+  color: red;
+  margin-top: 1px;
+  margin-bottom: 1px;
+  position: relative;
+  width: 100%;
+}
+
+#content {
+  width: 65%;
+  float: right;
+  margin-top: 50px;
+}
+
+/*.post {
+  background-color: rgba(255,255,255,0.15);
+  border-radius: 8px;
+  border: 1px solid black;
+  width: 75%;
+  position: relative;
+}*/

@@ -21,6 +21,7 @@ export default class Feed extends React.Component {
 
   getPosts () {
     const url = 'https://feedforwardt2.firebaseio.com/posts.json';
+    const postsRef = ''
     request.get(url).then((response) => {
       const postList = response.body;
       if (this.state.isMain) {
@@ -29,8 +30,9 @@ export default class Feed extends React.Component {
         });
       }
       else {
+        console.log(this.props.params.uid)
         const $individualUserPosts = $.map(postList, (post) => {
-          if (post.posterID === this.props.params.uid) {
+          if (post.posterID == this.props.params.uid) {
             return post;
           }
         });
@@ -81,7 +83,7 @@ export default class Feed extends React.Component {
           {
             $.map(this.state.posts, (post, id) => {
               return (
-                <Post post={post} key={id} postID={id} refreshList={this.getPosts} />
+                <Post post={post} key={id} postID={id} refreshList={this.getPosts} className={post} />
               );
             })
           }

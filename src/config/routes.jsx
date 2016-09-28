@@ -1,5 +1,5 @@
 import React from 'react';
-import {Router, Route, IndexRoute, hashHistory} from 'react-router';
+import {Router, Route, IndexRedirect, IndexRoute, hashHistory} from 'react-router';
 
 import Main from '../components/main.jsx';
 import Feed from '../components/feed.jsx';
@@ -11,11 +11,14 @@ import NewPostForm from '../components/post-handlers/new_post_form.jsx';
 const Routes = () => {
   return (
     <Router history={hashHistory}>
-      <Route path='/' component={Main} >
-        <IndexRoute component={Feed} />
-        <Route path='users' >
-          <Route path='all' component={UserList} />
-          <Route path=':uid' component={Feed} />
+      <Route path='/'>
+        <IndexRedirect to='main' />
+        <Route path='main' component={Main} >
+          <IndexRoute component={Feed} />
+          <Route path='users' >
+            <Route path='all' component={UserList} />
+            <Route path=':uid' component={Feed} />
+          </Route>
         </Route>
         <Route path='login' component={LoginForm} />
         <Route path='register' component={RegisterForm} />

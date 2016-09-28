@@ -40,7 +40,7 @@ export default class UserList extends React.Component {
     let poster = '';
     let userAlias = '';
     const elements = $.map(this.state.mostRecentUserPosts, (post, postID) => {
-      const path = `/users/${postID}`;
+      const path = `/main/users/${post.posterID}`;
       return (
         <div id='user-entry'>
           <Link to={path}>{post.posterAlias}</Link>
