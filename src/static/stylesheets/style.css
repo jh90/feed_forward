@@ -73,6 +73,10 @@ span {
   font-style: italic;
 }
 
+.comments-wrapper {
+  float: right;
+}
+
 /*.post {
   background-color: rgba(255,255,255,0.15);
   border-radius: 8px;

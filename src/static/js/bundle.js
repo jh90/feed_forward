@@ -21476,13 +21476,18 @@
 	    { history: _reactRouter.hashHistory },
 	    _react2.default.createElement(
 	      _reactRouter.Route,
-	      { path: '/', component: _main2.default },
-	      _react2.default.createElement(_reactRouter.IndexRoute, { component: _feed2.default }),
+	      { path: '/' },
+	      _react2.default.createElement(_reactRouter.IndexRedirect, { to: 'main' }),
 	      _react2.default.createElement(
 	        _reactRouter.Route,
-	        { path: 'users' },
-	        _react2.default.createElement(_reactRouter.Route, { path: 'all', component: _user_list2.default }),
-	        _react2.default.createElement(_reactRouter.Route, { path: ':uid', component: _feed2.default })
+	        { path: 'main', component: _main2.default },
+	        _react2.default.createElement(_reactRouter.IndexRoute, { component: _feed2.default }),
+	        _react2.default.createElement(
+	          _reactRouter.Route,
+	          { path: 'users' },
+	          _react2.default.createElement(_reactRouter.Route, { path: 'all', component: _user_list2.default }),
+	          _react2.default.createElement(_reactRouter.Route, { path: ':uid', component: _feed2.default })
+	        )
 	      ),
 	      _react2.default.createElement(_reactRouter.Route, { path: 'login', component: _login_form2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: 'register', component: _register_form2.default }),
@@ -27218,32 +27223,48 @@
 	    value: function toggleOptionsByAuthState() {
 	      if (!this.state.loggedIn) {
 	        return _react2.default.createElement(
-	          'div',
-	          { className: 'opt-links' },
+	          'ul',
+	          { id: 'opt-table' },
 	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: '/login', id: 'login' },
-	            'Login'
+	            'li',
+	            { className: 'main-link-items' },
+	            _react2.default.createElement(
+	              _reactRouter.Link,
+	              { to: '/login', className: 'main-links' },
+	              'Login'
+	            )
 	          ),
 	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: '/register', id: 'register' },
-	            'Register'
+	            'li',
+	            { className: 'main-link-items' },
+	            _react2.default.createElement(
+	              _reactRouter.Link,
+	              { to: '/register', className: 'main-links' },
+	              'Register'
+	            )
 	          )
 	        );
 	      } else {
 	        return _react2.default.createElement(
 	          'div',
-	          { className: 'opt-links' },
+	          { id: 'opt-table' },
 	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: '/new_post' },
-	            'New Post'
+	            'li',
+	            { className: 'main-link-items' },
+	            _react2.default.createElement(
+	              _reactRouter.Link,
+	              { to: '/new_post', className: 'main-links' },
+	              'New Post'
+	            )
 	          ),
 	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: '/', onClick: this.signOut },
-	            'Sign Out'
+	            'li',
+	            { className: 'main-link-items' },
+	            _react2.default.createElement(
+	              _reactRouter.Link,
+	              { to: '/', onClick: this.signOut, className: 'main-links' },
+	              'Sign Out'
+	            )
 	          )
 	        );
 	      }
@@ -27253,27 +27274,39 @@
 	    value: function toggleNavByLocation() {
 	      if (this.props.location.pathname !== '/') {
 	        return _react2.default.createElement(
-	          'div',
-	          { className: 'nav-links' },
+	          'ul',
+	          { id: 'nav-table' },
 	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: '/' },
-	            'All Posts'
+	            'li',
+	            { className: 'main-link-items' },
+	            _react2.default.createElement(
+	              _reactRouter.Link,
+	              { to: '/', className: 'main-links' },
+	              'All Posts'
+	            )
 	          ),
 	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: '/users/all' },
-	            'Browse Feeds'
+	            'li',
+	            { className: 'main-link-items' },
+	            _react2.default.createElement(
+	              _reactRouter.Link,
+	              { to: 'main/users/all', className: 'main-links' },
+	              'Browse Feeds'
+	            )
 	          )
 	        );
 	      } else {
 	        return _react2.default.createElement(
-	          'div',
-	          { className: 'nav-links' },
+	          'ul',
+	          { id: 'nav-table' },
 	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: '/users/all' },
-	            'Browse Feeds'
+	            'li',
+	            { className: 'main-links' },
+	            _react2.default.createElement(
+	              _reactRouter.Link,
+	              { to: 'main/users/all', className: 'main-links' },
+	              'Browse Feeds'
+	            )
 	          )
 	        );
 	      }
@@ -27285,19 +27318,34 @@
 	        'div',
 	        null,
 	        _react2.default.createElement(
-	          'h1',
-	          null,
-	          'fFW'
+	          'div',
+	          { id: 'ffw' },
+	          _react2.default.createElement('img', { id: 'f', src: 'http://www.charbase.com/images/glyph/8750' }),
+	          _react2.default.createElement(
+	            'h1',
+	            { id: 'fw' },
+	            'FW'
+	          ),
+	          _react2.default.createElement(
+	            'h4',
+	            { id: 'subhead' },
+	            _react2.default.createElement(
+	              'span',
+	              null,
+	              'feed'
+	            ),
+	            'Forward'
+	          )
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          null,
+	          { id: 'tools' },
 	          this.toggleOptionsByAuthState(),
 	          this.toggleNavByLocation()
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          null,
+	          { id: 'content' },
 	          this.props.children
 	        )
 	      );
@@ -28031,6 +28079,7 @@
 	      var _this2 = this;
 	
 	      var url = 'https://feedforwardt2.firebaseio.com/posts.json';
+	      var postsRef = '';
 	      _superagent2.default.get(url).then(function (response) {
 	        var postList = response.body;
 	        if (_this2.state.isMain) {
@@ -28038,8 +28087,9 @@
 	            posts: postList
 	          });
 	        } else {
+	          console.log(_this2.props.params.uid);
 	          var $individualUserPosts = $.map(postList, function (post) {
-	            if (post.posterID === _this2.props.params.uid) {
+	            if (post.posterID == _this2.props.params.uid) {
 	              return post;
 	            }
 	          });
@@ -28098,7 +28148,7 @@
 	          'div',
 	          { className: 'feed' },
 	          $.map(this.state.posts, function (post, id) {
-	            return _react2.default.createElement(_post2.default, { post: post, key: id, postID: id, refreshList: _this3.getPosts });
+	            return _react2.default.createElement(_post2.default, { post: post, key: id, postID: id, refreshList: _this3.getPosts, className: post });
 	          })
 	        )
 	      );
@@ -29723,6 +29773,10 @@
 	
 	var _superagent2 = _interopRequireDefault(_superagent);
 	
+	var _firebaseConfig = __webpack_require__(237);
+	
+	var _firebaseConfig2 = _interopRequireDefault(_firebaseConfig);
+	
 	var _post_view = __webpack_require__(270);
 	
 	var _post_view2 = _interopRequireDefault(_post_view);
@@ -29742,8 +29796,7 @@
 	var propTypes = {
 	  post: _react2.default.PropTypes.object.isRequired,
 	  postID: _react2.default.PropTypes.string.isRequired,
-	  refreshList: _react2.default.PropTypes.func.isRequired,
-	  isInUserList: _react2.default.PropTypes.bool
+	  refreshList: _react2.default.PropTypes.func.isRequired
 	};
 	
 	var Post = function (_React$Component) {
@@ -29763,6 +29816,7 @@
 	    _this.closeModal = _this.closeModal.bind(_this);
 	    _this.removePost = _this.removePost.bind(_this);
 	    _this.addVote = _this.addVote.bind(_this);
+	    _this.handleVote = _this.handleVote.bind(_this);
 	    return _this;
 	  }
 	
@@ -29800,13 +29854,12 @@
 	  }, {
 	    key: 'addVote',
 	    value: function addVote(increment) {
-	      var _this3 = this;
-	
-	      this.props.post.votes += increment;
-	      _superagent2.default.post(this.postURL).send(this.props.post).then(function () {
-	        _this3.setState({
-	          localVotes: _this3.props.post.votes
-	        });
+	      var newVote = this.props.post.votes + increment;
+	      var votesPath = 'posts/' + this.props.postID + '/votes';
+	      var votesRef = _firebaseConfig2.default.database().ref(votesPath);
+	      votesRef.set(newVote);
+	      this.setState({
+	        localVotes: newVote
 	      });
 	    }
 	  }, {
@@ -29816,8 +29869,10 @@
 	      var voteValue = 0;
 	      if (voteType === 'upvote') {
 	        voteValue = 1;
-	      } else {
+	      } else if (voteType === 'downvote') {
 	        voteValue = -1;
+	      } else {
+	        console.log('error');
 	      }
 	      this.addVote(voteValue);
 	    }
@@ -29826,7 +29881,7 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { className: 'post' },
 	        _react2.default.createElement(_post_view2.default, { post: this.props.post, removePost: this.removePost, inModal: false }),
 	        _react2.default.createElement(
 	          'p',
@@ -29864,7 +29919,7 @@
 	            )
 	          ),
 	          _react2.default.createElement(_post_view2.default, { post: this.props.post, inModal: true }),
-	          _react2.default.createElement(_comment_list2.default, { postID: this.props.postID })
+	          _react2.default.createElement(_comment_list2.default, { postID: this.props.postID, post: this.props.post })
 	        )
 	      );
 	    }
@@ -31933,10 +31988,12 @@
 	  remove: _react2.default.PropTypes.func.isRequired
 	};
 	
-	var RemoveButton = function RemoveButton() {
+	var RemoveButton = function RemoveButton(_ref) {
+	  var remove = _ref.remove;
+	
 	  return _react2.default.createElement(
 	    'button',
-	    { className: 'remove-button', onClick: undefined.props.remove },
+	    { className: 'remove-button', onClick: remove },
 	    'Delete'
 	  );
 	};
@@ -31986,7 +32043,8 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var propTypes = {
-	  postID: _react2.default.PropTypes.string.isRequired
+	  postID: _react2.default.PropTypes.string.isRequired,
+	  post: _react2.default.PropTypes.object
 	};
 	
 	var CommentList = function (_React$Component) {
@@ -32016,35 +32074,29 @@
 	    value: function getPostComments() {
 	      var _this2 = this;
 	
-	      var url = 'https://feedforwardt2.firebaseio.com/posts/' + this.props.post.id;
-	      _superagent2.default.get(url).then(function (response) {
+	      var path = 'posts/' + this.props.postID + '/comments/';
+	      var postRef = _firebaseConfig2.default.database().ref(path);
+	      postRef.on('value', function (snapshot) {
 	        _this2.setState({
-	          comments: response.body.comments
+	          comments: snapshot.val()
 	        });
 	      });
 	    }
 	  }, {
 	    key: 'deleteComment',
 	    value: function deleteComment(cid) {
-	      var _this3 = this;
-	
-	      var url = 'https://feedforwardt2.firebaseio.com/posts/' + this.props.post.id + '/comments/' + cid;
-	      _superagent2.default.del(url).then(function () {
-	        _this3.getPostComments();
-	      });
+	      var commentRef = _firebaseConfig2.default.database().ref('posts/' + this.props.postID + '/comments/' + cid);
+	      commentRef.remove();
 	    }
 	  }, {
 	    key: 'getCommenterAlias',
-	    value: function getCommenterAlias(comment) {
-	      var url = 'https://feedforwardt2.firebaseio.com/users/' + comment.submitterUID;
-	      _superagent2.default.get(url).then(function (response) {
-	        return response.body.alias;
-	      });
+	    value: function getCommenterAlias() {
+	      return _firebaseConfig2.default.auth().currentUser.displayName;
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this4 = this;
+	      var _this3 = this;
 	
 	      return _react2.default.createElement(
 	        'div',
@@ -32055,9 +32107,9 @@
 	          $.map(this.state.comments, function (comment, cid) {
 	            return _react2.default.createElement(_comment2.default, { comment: comment,
 	              commentID: cid,
-	              commenter: _this4.getCommenterAlias(comment),
-	              deleteComment: _this4.deleteComment,
-	              postID: _this4.props.postID,
+	              commenter: _this3.getCommenterAlias(),
+	              deleteComment: _this3.deleteComment,
+	              postID: _this3.props.postID,
 	              key: cid
 	            });
 	          })
@@ -32144,7 +32196,7 @@
 	        _react2.default.createElement(
 	          'p',
 	          null,
-	          this.props.comment.text
+	          this.props.comment.commentText
 	        ),
 	        _firebaseConfig2.default.auth().currentUser.uid === this.props.comment.commenterID ? _react2.default.createElement(_remove_button2.default, { remove: this.handleDelete }) : false
 	      );
@@ -32215,6 +32267,14 @@
 	  }
 	
 	  _createClass(NewCommentForm, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.setState({
+	        submitterUID: _firebaseConfig2.default.auth().currentUser.uid,
+	        timestamp: this.getTimestamp()
+	      });
+	    }
+	  }, {
 	    key: 'handleChange',
 	    value: function handleChange(e) {
 	      var inputState = {};
@@ -32225,12 +32285,7 @@
 	  }, {
 	    key: 'handleSubmit',
 	    value: function handleSubmit() {
-	      var _this2 = this;
-	
-	      var url = 'https://feedforwardt2.firebaseio.com/posts/' + this.props.postID + '/comments.json';
-	      _superagent2.default.post(url).send(this.state).then(function () {
-	        _this2.props.getPostComments();
-	      });
+	      _firebaseConfig2.default.database().ref('posts/' + this.props.postID + '/comments').push(this.state);
 	    }
 	  }, {
 	    key: 'getTimestamp',
@@ -32254,16 +32309,8 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'comment-form' },
-	          _react2.default.createElement(
-	            'div',
-	            null,
-	            _react2.default.createElement('input', { name: 'commentText', onChange: this.handleChange, type: 'text',
-	              placeholder: 'Post a comment' }),
-	            _react2.default.createElement('input', { name: 'submitterUID', onChange: this.handleChange, type: 'hidden',
-	              value: _firebaseConfig2.default.auth().currentUser.uid }),
-	            _react2.default.createElement('input', { name: 'timestamp', onChange: this.handleChange, type: 'hidden',
-	              value: this.getTimestamp })
-	          ),
+	          _react2.default.createElement('input', { name: 'commentText', onChange: this.handleChange, type: 'text',
+	            placeholder: 'Post a comment' }),
 	          _react2.default.createElement(
 	            'button',
 	            { className: 'comment-button', onClick: this.handleSubmit },
@@ -32364,26 +32411,23 @@
 	      var usersURL = 'https://feedforwardt2.firebaseio.com/users.json';
 	      var poster = '';
 	      var userAlias = '';
+	      var elements = $.map(this.state.mostRecentUserPosts, function (post, postID) {
+	        var path = '/main/users/' + post.posterID;
+	        return _react2.default.createElement(
+	          'div',
+	          { id: 'user-entry' },
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: path },
+	            post.posterAlias
+	          ),
+	          _react2.default.createElement(_post2.default, { post: post, postID: postID, refreshList: _this3.getLastPostOfEachUser })
+	        );
+	      });
 	      return _react2.default.createElement(
 	        'div',
-	        null,
-	        $.map(this.state.mostRecentUserPosts, function (post, postID) {
-	          _superagent2.default.get(usersURL).then(function (response) {
-	            poster = response.body[post.posterID];
-	            userAlias = poster.alias;
-	          }).then(function () {
-	            return _react2.default.createElement(
-	              'div',
-	              null,
-	              _react2.default.createElement(
-	                _reactRouter.Link,
-	                { to: '/users/{post.posterID}', className: 'user-link' },
-	                userAlias
-	              ),
-	              _react2.default.createElement(_post2.default, { post: post, postID: postID, refreshList: _this3.getLastPostOfEachUser })
-	            );
-	          });
-	        })
+	        { className: 'dummy' },
+	        elements
 	      );
 	    }
 	  }]);
@@ -32492,6 +32536,11 @@
 	            { className: 'auth-button', onClick: this.handleSubmit },
 	            'Login'
 	          )
+	        ),
+	        _react2.default.createElement(
+	          _reactRouter.Link,
+	          { to: '/', id: 'back-to-main' },
+	          'Home'
 	        )
 	      );
 	    }
@@ -32568,10 +32617,11 @@
 	      var password = _state.password;
 	      var name = _state.name;
 	
-	      _firebaseConfig2.default.auth().createUserWithEmailAndPassword(user, password).catch(function (err) {
-	        console.log(err.code + ' ' + err.message);
-	      }).then(function (registrant) {
-	        _firebaseConfig2.default.database().ref('users').child(registrant.uid).set({ alias: name, email: user, id: registrant.uid });
+	      console.log(this.state);
+	      console.log(name);
+	      _firebaseConfig2.default.auth().createUserWithEmailAndPassword(user, password).then(function (registrant) {
+	        registrant.updateProfile({ displayName: name });
+	        _firebaseConfig2.default.database().ref('users').child(registrant.uid).set({ displayName: name, email: user, id: registrant.uid });
 	      }).then(function () {
 	        _this2.props.router.push('/');
 	      });
@@ -32593,7 +32643,7 @@
 	          _react2.default.createElement(
 	            'div',
 	            null,
-	            _react2.default.createElement('input', { name: 'user', onChange: this.handleChange, type: 'text', placeholder: 'Username' })
+	            _react2.default.createElement('input', { name: 'user', onChange: this.handleChange, type: 'text', placeholder: 'Email' })
 	          ),
 	          _react2.default.createElement(
 	            'div',
@@ -32610,6 +32660,11 @@
 	            { className: 'auth-button', onClick: this.handleSubmit },
 	            'Register'
 	          )
+	        ),
+	        _react2.default.createElement(
+	          _reactRouter.Link,
+	          { to: '/', id: 'back-to-main' },
+	          'Home'
 	        )
 	      );
 	    }
@@ -32687,9 +32742,12 @@
 	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
+	      console.log(_firebaseConfig2.default.auth().currentUser.uid);
+	      console.log(_firebaseConfig2.default.auth().currentUser.displayName);
 	      this.setState({
 	        posterID: _firebaseConfig2.default.auth().currentUser.uid,
-	        timestamp: this.getTimestamp()
+	        timestamp: this.getTimestamp(),
+	        posterAlias: _firebaseConfig2.default.auth().currentUser.displayName
 	      });
 	    }
 	  }, {
@@ -32705,6 +32763,7 @@
 	    value: function handleSubmit() {
 	      var _this2 = this;
 	
+	      console.log(this.state);
 	      var baseURL = 'https://feedforwardt2.firebaseio.com/posts.json';
 	      _superagent2.default.post(baseURL).send(this.state).then(function (response) {
 	        _this2.props.router.push('/');
