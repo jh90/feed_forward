@@ -75,10 +75,10 @@ export default class Feed extends React.Component {
 
   render () {
     return (
-      <div>
-        <button className='order-button' onClick={this.handleReordering}>
-          {this.state.orderByVotes ? 'Most Recent' : 'Highest Voted'}
-        </button>
+      <div id='feed'>
+        <div className='order-button' onClick={this.handleReordering}>
+          <h3 id='order-text'>{this.state.orderByVotes ? 'Most Recent' : 'Highest Voted'}</h3>
+        </div>
         <div className='feed'>
           {
             $.map(this.state.posts, (post, id) => {

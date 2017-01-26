@@ -1,9 +1,13 @@
+body {
+  background-color: #2ecc71;
+}
+
 #tools {
   display: inline-block;
   padding: 0;
   width: 15%;
   position: fixed;
-  margin-top: 130px;
+  margin-top: 40px;
 }
 
 .main-links {
@@ -12,36 +16,27 @@
   color: black;
 }
 
-#nav-table {
+.table {
   list-style: none;
   display: block;
   position: relative;
   width: 100%;
   margin: 0;
-  border: 2px solid black;
   padding: 0;
-  background-color: black;
-}
-
-#opt-table {
-  list-style: none;
-  display: block;
-  position: relative;
-  width: 100%;
-  margin: 0;
-  border: 2px solid black;
-  padding: 0;
-  background-color: black;
+  background-color: #2ecc71;
 }
 
 .main-link-items {
   list-style: none;
-  background-color: white;
+  background-color: rgba(41, 128, 185,1.0);
   color: red;
-  margin-top: 1px;
-  margin-bottom: 1px;
+  margin-top: 7px;
+  margin-bottom: 7px;
   position: relative;
   width: 100%;
+  border-radius: 10px;
+  padding: 15px;
+  font-size: 20px;
 }
 
 #content {
@@ -77,10 +72,78 @@ span {
   float: right;
 }
 
-/*.post {
-  background-color: rgba(255,255,255,0.15);
+.post {
   border-radius: 8px;
-  border: 1px solid black;
+  border: 3px solid #2c3e50;
   width: 75%;
   position: relative;
-}*/
+  margin: 30px;
+  padding: 20px;
+  color: #34495e;
+  background-color: #ecf0f1;
+}
+
+.order-button {
+  background-color: #2ecc71;
+  padding: 15px;
+  margin-bottom: 50px;
+  max-width: 200px;
+  position: relative;
+  left: -6em;
+}
+
+#order-text {
+  position: relative;
+  bottom: 2.5px;
+  color: rgba(44, 62, 80,1.0);
+  font-style: bold;
+  margin: 0 auto;
+  float: right;
+  border: solid black 2px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+#feed {
+  position: relative;
+  left: -2.5em;
+  top: -3.5em;
+}
+
+#register {
+  text-align: center;
+}
+
+#register-form {
+  position: relative;
+  max-width: 400px;
+  color: rgba(142, 68, 173,1.0);
+}
+
+.register-field {
+  margin: 10px auto;
+  padding: 15px;
+  font-size: 20px;
+  border-radius: 10px;
+}
+
+.auth-button {
+  background-color: rgba(41, 128, 185,1.0);
+  color: black;
+  border-radius: 10px;
+  padding: 15px;
+  font-size: 17px;
+  text-decoration: none;
+  margin: 20px;
+}
+
+.home-button {
+  background-color: rgba(41, 128, 185,1.0);
+  color: black;
+  border-radius: 10px;
+  padding: 15px;
+  font-size: 17px;
+  text-decoration: none;
+  position: relative;
+  bottom: -1em;
+}

@@ -41,21 +41,21 @@ class Register extends React.Component {
 
   render () {
     return (
-      <div>
-        <h1>Register</h1>
+      <div id='register'>
+        <h1 id='register-header'>Register</h1>
         <div className='register-form'>
           <div>
-            <input name="user" onChange={this.handleChange} type="text" placeholder="Email" />
+            <input className='register-field' name="user" onChange={this.handleChange} type="text" placeholder="Email" />
           </div>
           <div>
-            <input name="password" onChange={this.handleChange} type="password" placeholder="Password" />
+            <input className='register-field' name="password" onChange={this.handleChange} type="password" placeholder="Password" />
           </div>
           <div>
-            <input name="name" onChange={this.handleChange} type="text" placeholder="Alias" />
+            <input className='register-field' name="name" onChange={this.handleChange} type="text" placeholder="Alias" />
           </div>
-          <button className="auth-button" onClick={this.handleSubmit}>Register</button>
+          <button className="auth-button" onClick={this.handleSubmit}>Sign Up!</button>
         </div>
-        <Link to='/' id='back-to-main'>Home</Link>
+        <Link className='home-button' to='/' id='back-to-main'>Home</Link>
       </div>
     );
   }

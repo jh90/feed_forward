@@ -35,7 +35,7 @@ export default class Main extends React.Component {
   toggleOptionsByAuthState () {
     if(!this.state.loggedIn) {
       return (
-        <ul id='opt-table'>
+        <ul className='table'>
           <li className='main-link-items'><Link to='/login' className='main-links'>Login</Link></li>
           <li className='main-link-items'><Link to='/register' className='main-links'>Register</Link></li>
         </ul>
@@ -43,7 +43,7 @@ export default class Main extends React.Component {
     }
     else {
       return (
-        <div id='opt-table'>
+        <div className='table'>
           <li className='main-link-items'><Link to='/new_post' className='main-links'>New Post
           </Link></li>
           <li className='main-link-items'><Link to='/' onClick={this.signOut} className='main-links'>Sign Out
@@ -56,7 +56,7 @@ export default class Main extends React.Component {
   toggleNavByLocation () {
     if(this.props.location.pathname !== '/') {
       return (
-        <ul id='nav-table'>
+        <ul className='table'>
           <li className='main-link-items'><Link to='/' className='main-links'>All Posts
           </Link></li>
           <li className='main-link-items'><Link to='main/users/all' className='main-links'>Browse Feeds
@@ -66,7 +66,7 @@ export default class Main extends React.Component {
     }
     else {
       return (
-        <ul id='nav-table'>
+        <ul className='table'>
           <li className='main-links'><Link to='main/users/all' className='main-links'>Browse Feeds</Link></li>
         </ul>
       );
